@@ -1,0 +1,43 @@
+[
+    {
+        "name": "slingers",
+        "aliases": [
+            "sling", "slinger"
+        ],
+        "type": "OLU"
+    },
+    {
+        "name": "hoplites",
+        "aliases": [
+            "hop", "hops", "hoplite"
+        ],
+        "type": "OLU"
+    },
+    {
+        "name": "horsemen",
+        "aliases": [
+            "horse", "horses", "horseman"
+        ],
+        "type": "OLU"
+    },
+    {
+        "name": "catapults",
+        "aliases": [
+            "cata", "cats", "catapult", "cat"
+        ],
+        "type": "CAT"
+    },
+    {
+        "name": "light ships",
+        "aliases": [
+            "lightship", "light", "ls"
+        ],
+        "type": "NAVO"
+    },
+    {
+        "name": "triremes",
+        "aliases": [
+            "tri", "tris", "tireme", "reme", "trireme"
+        ]
+    }
+]
