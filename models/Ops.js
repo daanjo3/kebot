@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
-        title: {
+        city: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         status: {
             type: DataTypes.STRING,
         },
-        attacker: {
+        driver: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        organiser: {
             type: DataTypes.STRING,
             allowNull: false,
         },

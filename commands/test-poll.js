@@ -1,5 +1,5 @@
 const { Ops } = require('../dbObjects');
-const newOpEmbed = require('../op/embed_new_op');
+const newOpEmbed = require('../op/embed_add_op');
 const Discord = require('discord.js');
 
 // Creates a new operation
@@ -9,15 +9,14 @@ module.exports = {
     description: 'Test the polling command',
     args: false,
     cooldown: 5,
-    async execute(message, args) {
+    async execute(message, _args) {
 
         const acceptEmoji = '✅';
         const rejectEmoji = '❌';
 
         const filter = (reaction, user) => {
-            return ( reaction.emoji.name === acceptEmoji || reaction.emoji.name === rejectEmoji ) && !user.bot;
-        }
-
+            return (reaction.emoji.name === acceptEmoji || reaction.emoji.name === rejectEmoji) && !user.bot;
+        };
         
         message.channel.send('Wanna fight?').then(message => {
             message.react(acceptEmoji);

@@ -1,22 +1,23 @@
 const { Ops } = require('../dbObjects');
-const { loadEmbed } = require('../op/embed_check_op');
+const { loadEmbed } = require('../op/embedOp');
+const { idToUsername } = require('../etc/discordutil');
 
 module.exports = {
-    name: 'opstatus',
-    aliases: ['statusop'],
-    description: 'Check the details for an op',
+    name: 'op',
+    aliases: ['viewop', 'opview'],
+    description: 'Check the details for an OP.',
     args: true,
     cooldown: 5,
-    usage: '[op id]',
+    usage: 'OPID',
     async execute(message, args) {
         // Check that only an op id is provided
         if (args.length != 1) {
-            message.reply('One argument should be provided, the op id');
+            message.reply('One argument should be provided, the OPID.');
             return;
         }
         // Check whether an op with that id exists
-        const op_id = args[0];
-        const op = await Ops.findOne({ where: { op_id: op_id } });
+        const OPID = args[0];
+        const op = await Ops.findOne({ where: { op_id: OPID } });
         if (!op) {
             message.reply('That op did not exist');
             return;
@@ -26,7 +27,7 @@ module.exports = {
         const troopIndexes = await op.getIndex();
 
         // Create the MessageEmbed
-        const embed = loadEmbed(op, troopIndexes);
+        const embed = await loadEmbed(op, troopIndexes, (id) => idToUsername(message.client, id));
         return message.reply({ embed: embed });
     },
 };

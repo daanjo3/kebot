@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -10,15 +11,17 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 const Ops = sequelize.import('models/Ops');
 const TroopIndex = sequelize.import('models/TroopIndex');
 
-// TroopIndex.belongsTo(Ops, { foreignKey: 'op_id', as: 'op' });
+Ops.prototype.enlistUser = async function(userid) {
+    return await TroopIndex.create({ op_id: this.op_id, userid: userid });
+};
 
-Ops.prototype.setTroops = async function(username, unit, amount) {
+Ops.prototype.setTroops = async function(userid, unit, amount) {
     let playerIndex = await TroopIndex.findOne({
-        where: { op_id: this.op_id, username: username },
+        where: { op_id: this.op_id, userid: userid },
     });
 
     if (!playerIndex) {
-        playerIndex = await TroopIndex.create({ op_id: this.op_id, username: username });
+        playerIndex = await TroopIndex.create({ op_id: this.op_id, userid: userid });
     }
 
     setTroops(playerIndex, unit, amount);
@@ -29,6 +32,22 @@ Ops.prototype.getIndex = async function() {
     return await TroopIndex.findAll({
         where: { op_id: this.op_id },
     });
+};
+
+Ops.prototype.getIndexByPlayer = async function(attackerId) {
+    return await TroopIndex.findOne({
+        where: { op_id: this.op_id, userid: attackerId },
+    });
+};
+
+Ops.prototype.isUserEnlisted = async function(userid) {
+    const opindex = await TroopIndex.findAll({ where: { 
+        [Op.and]: [
+            { op_id: this.op_id },
+            { userid: userid },
+        ],
+    } });
+    return opindex.length > 0;
 };
 
 function setTroops(troopIndex, unit, amount) {
@@ -72,4 +91,10 @@ function setTroops(troopIndex, unit, amount) {
     return;
 }
 
-module.exports = { Ops, TroopIndex };
+async function updateDriver(OPID, driver) {
+    const affectedRows = await Ops.update({ driver: driver }, { where: { op_id: OPID } });
+    await TroopIndex.upsert({ op_id: OPID, userid: driver });
+    return affectedRows;
+}
+
+module.exports = { Ops, TroopIndex, updateDriver };

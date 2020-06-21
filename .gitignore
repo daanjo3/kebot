@@ -39,3 +39,4 @@ typings/
 .eslintcache
 
 # End of generated stuff
+database.sqlite
