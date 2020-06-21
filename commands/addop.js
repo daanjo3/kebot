@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 
 const { emojis } = require('../etc/style');
 const { filterQuotes } = require('../etc/argutil');
+const { idToUsername } = require('../etc/discordutil');
 
 // Creates a new operation
 module.exports = {
@@ -18,7 +19,6 @@ module.exports = {
             message.channel.reply('Only 1 argument should be provided');
             return;
         }
-        console.log(args);
         const city = filterQuotes(args[0]);
         // Create the op
         const op = await Ops.create({ 
@@ -30,8 +30,7 @@ module.exports = {
         const fullOp = await Ops.findOne({ where: { city: op.city } });
         
         // Return the result
-        console.log(`${op.organiser} started an OP targeting ${op.city}`);
-        message.channel.send({ embed: loadEmbed(fullOp) })
+        message.channel.send({ embed: await loadEmbed(message.client, fullOp) })
             .then(m => {
                 m.react(emojis.accept);
                 pendingAcceptOP(m, fullOp);
@@ -73,9 +72,9 @@ function pendingAcceptOP(message, op) {
 }
 
 // Populate the MessageEmbed object
-function loadEmbed(op) {
+async function loadEmbed(client, op) {
     const embed = new Discord.MessageEmbed();
-    embed.title = `${op.organiser} started an OP targeting ${op.city}`;
+    embed.title = `${ await idToUsername(client, op.organiser) } started an OP targeting ${op.city}`;
     embed.description = `Press ${emojis.accept} to join!`;
     embed.timestamp = op.createdAt;
     embed.addField('OPID', op.op_id);
