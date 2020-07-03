@@ -1,13 +1,22 @@
 {
-  "name": "kebop",
+  "name": "gbot-optool",
   "version": "1.0.0",
-  "description": "Op tracker for the Kebbe alliance",
+  "description": "Discord bot for tracking OPs in Grepolis.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daanjo3/grepobot"
+  },
+  "author": {
+    "name": "Daan Meijers",
+    "email": "daanmeijersit@gmail.com",
+    "url": "https://github.com/daanjo3"
+  },
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^12.2.0",
     "eslint": "^7.2.0",
