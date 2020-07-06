@@ -4,8 +4,9 @@
   "description": "Discord bot for tracking OPs in Grepolis.",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node dbInit.js"
   },
   "repository": {
     "type": "git",
