@@ -1,23 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Ops', {
-        OPID: {
+    return sequelize.define('ops', {
+        op_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
-        cityName: {
+        city: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         status: {
             type: DataTypes.STRING,
-            defaultValue: 'Planned',
+        },
+        driver: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         organiser: {
             type: DataTypes.STRING,
-            references: {
-                model: 'Users',
-                key: 'userID',
-            },
+            allowNull: false,
         },
     });
 };

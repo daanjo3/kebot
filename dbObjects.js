@@ -8,8 +8,8 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     storage: 'database.sqlite',
 });
 
-const Ops = sequelize.import('models/Ops');
-const TroopIndex = sequelize.import('models/TroopIndex');
+const Ops = sequelize.import('models.old/Ops');
+const TroopIndex = sequelize.import('models.old/TroopIndex');
 
 Ops.prototype.enlistUser = async function(userid) {
     return await TroopIndex.create({ op_id: this.op_id, userid: userid });
