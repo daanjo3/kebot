@@ -1,7 +1,7 @@
 # Kebop
 
 ### Description
-Kebop tracks registered users for an op and keeps the totals of troops dedicated to an op. This way it is easy to check wether the necessary fighting power is available.
+Kebop tracks registered users for an op(eration) and counts the totals of troops dedicated to an op. This way it is easy to check whether the necessary fighting power is available.
 
 ### Installation
 1. Ensure you have the latest version of npm and node.
