@@ -1,6 +1,6 @@
 # Kebop
 
-###Description
+### Description
 Kebop tracks registered users for an op and keeps the totals of troops dedicated to an op. This way it is easy to check wether the necessary fighting power is available.
 
 ### Installation
